@@ -1,0 +1,54 @@
+# Read data from the text file
+data = []
+with open("/content/data-2col.txt", 'r') as f:
+    for line in f:
+        key, val = line.strip().split()
+        data.append((key, float(val)))
+print(data)
+
+# Function to build a maximum heap
+def maxheap(data,k):
+    h = data[:k]
+    for i in range(k// 2 - 1, -1, -1):
+        insert(h, i)
+    return h
+
+# Function to insert the element into the heap
+def insert(h, num):
+    leftnum = 2 * num + 1
+    rightnum = 2 * num + 2
+    largenum = num
+    if (leftnum < len(h) and h[leftnum][1] > h[largenum][1]):
+        largenum = leftnum
+    if (rightnum < len(h) and h[rightnum][1] > h[largenum][1]):
+        largenum = rightnum
+    if largenum != num:
+        h[num], h[largenum] = h[largenum], h[num]
+        insert(h, largenum)
+
+# Function for sorting the elements
+def sort(h):
+    s = []
+    h_copy = h.copy()
+    while h_copy:
+        s.append(h_copy[0])
+        h_copy[0] = h_copy[-1]
+        h_copy.pop()
+        insert(h_copy, 0)
+    return s
+
+# Function to get the top k elements under the limited memory budget
+def topk(h, k):
+    return h[:k]
+
+# Function to get the key with the largest k value
+def getkey(h):
+    return h[0][0]
+
+k = int(input("\nEnter the value of k: "))
+h = maxheap(data,k)
+s = sort(h)
+top = topk(h, k)
+print("\nSorted array:", s)
+print("\nKey largest value:", getkey(h))
+print("\nTop k elements:", top)
