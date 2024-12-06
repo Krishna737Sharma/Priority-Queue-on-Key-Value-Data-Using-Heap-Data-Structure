@@ -29,5 +29,5 @@ The data is stored in a text file `data-2col.txt` with two columns:
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/priority-queue-heap.git
+git clone https://github.com/Krishna737Sharma/priority-queue-heap.git
 cd priority-queue-heap
